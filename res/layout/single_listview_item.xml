@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/framePictureLayoutUpper"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/nesreca"
+            android:scaleType="centerCrop"
+            android:id="@+id/listViewArticlePicture"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/gradient_background_image"
+            android:orientation="vertical"
+            android:layout_gravity="bottom">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:paddingLeft="20dp"
+                android:textColor="#FFFFFF"
+                android:id="@+id/listViewHeadline"
+                android:layout_alignParentBottom="true"
+                android:text="Naslov"
+                android:textSize="40sp"/>
+
+        </RelativeLayout>
+    </FrameLayout>
+</LinearLayout>
