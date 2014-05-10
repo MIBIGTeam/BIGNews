@@ -1,5 +1,8 @@
 package com.hackathon.bigteam;
 
+import com.hackaton.model.Article;
+import com.hackaton.util.JsonParser;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +12,8 @@ import android.view.Window;
 
 public class ReadNews extends Activity {
 
+	private Article article;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -17,7 +22,10 @@ public class ReadNews extends Activity {
 		
 		Intent intent = getIntent();
 		String jsons = intent.getStringExtra("jsons");
-		Log.i("TEST: ", jsons);
+		article = JsonParser.ParseArticle(jsons);
+		Log.i("TEST: ", article.getArticleHeadline());
+		Log.i("TEST: ", article.getArticleID());
+		Log.i("TEST: ", article.getArticleText());
 	}
 
 	@Override
