@@ -2,9 +2,14 @@ package com.hackathon.bigteam;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import com.hackaton.model.Article;
+import com.hackaton.util.HttpRequest;
+import com.hackaton.util.InitializingFinished;
 import com.hackaton.util.JsonParser;
-import android.app.Activity;
+import com.hackaton.util.NextScreen;
+import com.hackaton.util.UrlMaker;
+
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,18 +17,14 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class ArticlesListActivity extends ListActivity {
@@ -38,33 +39,24 @@ public class ArticlesListActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_articles_list);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		ArrayList<Article> articles = new ArrayList<Article>();
-		itemsBitmaps = new HashMap<String, Bitmap>();
-		itemsIV = new HashMap<Article, ImageView>();
-		// this.adapter = new ArticleAdapter(this, R.layout.profile_item,
-		// articles);
-		setListAdapter(this.adapter);
+		//itemsBitmaps = new HashMap<String, Bitmap>();
+		//itemsIV = new HashMap<Article, ImageView>();
+		
 
 		Intent intent = getIntent();
-		// articles = JsonParser.parseProfiles(intent.getStringExtra("jsons"));
-		Article ar = new Article();
-		ar.setArticleHeadline("wtf");
-		articles.add(ar);
-		Log.i("Lista", "Dodano: " + articles.size());
+		articles = JsonParser.ParseArticles(intent.getStringExtra("jsons"));
+		Log.i("ArticlesListActivity", "Added: " + articles.size());
 		numberOfLastAddedMembers = articles.size();
-
-		if (articles.size() > 0) {
-			for (int i = 0; i < articles.size(); i++)
-				adapter.add(articles.get(i));
-		}
-		adapter.notifyDataSetChanged();
+		
+		this.adapter = new ArticleAdapter(this, R.layout.single_listview_item, articles);
+		setListAdapter(this.adapter);
 
 		// inace nema smisla dodavat ove listenere
 		if (numberOfLastAddedMembers != 0) {
 			getListView().setOnItemClickListener(listlistener);
-			getListView().setOnScrollListener(scrollListener);
+			//getListView().setOnScrollListener(scrollListener);
 		}
 	}
 
@@ -94,73 +86,51 @@ public class ArticlesListActivity extends ListActivity {
 	private OnItemClickListener listlistener = new OnItemClickListener() {
 
 		@Override
-		public void onItemClick(AdapterView<?> parent, View arg1, int position,
-				long arg3) {
-			// Profile1Activity.profile = (Article)
-			// parent.getItemAtPosition(position);
-			// Profile1Activity.profileBmp =
-			// itemsBitmaps.get(Profile1Activity.profile.getId());
-			// Intent i = new Intent(getBaseContext(), Profile1Activity.class);
-			// startActivity(i);
+		public void onItemClick(AdapterView<?> parent, View arg1, int position, long arg3) {
+			
+			
+			Article article = (Article) parent.getItemAtPosition(position);			
+			NextScreen initializingFinished = new InitializingFinished(ReadNews.class);
+			HttpRequest request = new HttpRequest(ArticlesListActivity.this, initializingFinished, 0, true);
+			String url = UrlMaker.GetArticle(article.getArticleID());
+			request.execute(url);
+			Log.i("ArticlesListActivity starts url: ", url);
 		}
 	};
 
 	private class ArticleAdapter extends ArrayAdapter<Article> {
+		
 		private ArrayList<Article> items;
 
-		public ArticleAdapter(Context context, int textViewResourceId,
-				ArrayList<Article> items) {
+		public ArticleAdapter(Context context, int textViewResourceId, ArrayList<Article> items) {
 			super(context, textViewResourceId, items);
 			this.items = items;
 		}
-
-		@SuppressWarnings("deprecation")
+		
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
+			Log.i("ArticleAdapter", "1");
 			View v = convertView;
+			Log.i("ArticleAdapter", "2");
 			if (v == null) {
 				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				// v = vi.inflate(R.layout.profile_item, null);
+				v = vi.inflate(R.layout.single_listview_item, null);
 			}
+			Log.i("ArticleAdapter", "3");
 			Article o = items.get(position);
 			if (o != null) {
-				// TextView tt = (TextView) v.findViewById(R.id.toptext);
-				// TextView bt = (TextView) v.findViewById(R.id.bottomtext);
-				// TextView city = (TextView) v.findViewById(R.id.city);
-				// ImageView iv = (ImageView) v.findViewById(R.id.profile_icon);
-				//
-				// if (tt != null)
-				// {
-				// tt.setText(o.getFirstName() + " " + o.getLastName());
-				// }
-				// if (bt != null)
-				// {
-				// bt.setText(o.getSubject());
-				// }
-				// if (city != null)
-				// {
-				// city.setText(o.getCity());
-				// }
-				// if (iv != null)
-				// {
-				// if (!itemsIV.containsKey(o))
-				// {
-				// itemsIV.put(o, iv);
-				// //iv.setAlpha(0.0f);
-				// new DownloadImageTask().execute(o);
-				// }
-				//
-				// if (itemsBitmaps.containsKey(o.getId()))
-				// {
-				// iv.setAlpha(255);
-				// iv.setImageBitmap(itemsBitmaps.get(o.getId()));
-				// }
-				// else
-				// iv.setAlpha(0); // sometimes it gets wrong imageView so we
-				// need to put opacity to 0 until new image is loaded
-				// }
-				// }
-			}
+				TextView tt = (TextView) v.findViewById(R.id.listViewHeadline);
+				ImageView iv = (ImageView) v.findViewById(R.id.listViewArticlePicture);
+
+				if (tt != null) {
+					tt.setText(o.getArticleHeadline());
+				}
+				if (iv != null) {
+						//itemsIV.put(o, iv);
+						//iv.setAlpha(0.0f);
+						// new DownloadImageTask().execute(o);
+					}
+				}
 			return v;
 		}
 	}

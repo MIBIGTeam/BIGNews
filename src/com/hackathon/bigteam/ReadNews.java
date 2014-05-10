@@ -59,7 +59,7 @@ class ReaderPagerAdapter extends PagerAdapter{
             resId = R.id.scrollView;
             Intent intent = activity.getIntent();
     		String jsons = intent.getStringExtra("jsons");
-    		Article article = JsonParser.ParseArticle(jsons);
+    		Article article = JsonParser.ParseArticles(jsons).get(0);
     		
     		articlePicture = (ImageView) activity.findViewById(R.id.articlePicture);
     		

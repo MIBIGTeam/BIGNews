@@ -2,17 +2,17 @@ package com.hackaton.model;
 
 public class Article {
 	
-	private String ArticleID;
+	private int ArticleID;
 	private String ArticleHeadline;
 	private String ArticleText;
 	private String ArticleAuthor;
 	private String ArticleDate;
 	private String PictureUrl;
 	
-	public String getArticleID() {
+	public int getArticleID() {
 		return ArticleID;
 	}
-	public void setArticleID(String articleID) {
+	public void setArticleID(int articleID) {
 		ArticleID = articleID;
 	}
 	public String getArticleHeadline() {
