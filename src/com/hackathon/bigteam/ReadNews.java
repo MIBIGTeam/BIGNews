@@ -2,6 +2,8 @@ package com.hackathon.bigteam;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.Window;
 
@@ -12,6 +14,10 @@ public class ReadNews extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_read_news);
+		
+		Intent intent = getIntent();
+		String jsons = intent.getStringExtra("jsons");
+		Log.i("TEST: ", jsons);
 	}
 
 	@Override
