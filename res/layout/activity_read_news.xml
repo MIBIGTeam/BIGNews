@@ -6,12 +6,11 @@
     android:orientation="vertical"
     tools:context="com.hackaton.bigteam.ReadNews">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#0B3861">
+        android:background="#0B3861"
+        android:orientation="horizontal" >
 
         <ImageButton
             android:layout_marginTop="5dp"
@@ -23,7 +22,8 @@
             android:background="#00000000"
             android:padding="2dp"
             android:id="@+id/readNewsToListButton"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerVertical="true"
             />
         
         <LinearLayout
@@ -31,6 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
+			android:padding="10dp"
+			android:layout_centerVertical="true"
             >
 
             <ImageButton
