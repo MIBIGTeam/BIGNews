@@ -1,9 +1,16 @@
 package com.hackathon.bigteam;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.hackaton.model.Article;
 import com.hackaton.util.BitmapDownloader;
@@ -12,7 +19,6 @@ import com.hackaton.util.InitializingFinished;
 import com.hackaton.util.JsonParser;
 import com.hackaton.util.NextScreen;
 import com.hackaton.util.UrlMaker;
-
 import com.squareup.picasso.Picasso;
 
 import android.app.ListActivity;
@@ -20,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,7 +45,7 @@ public class ArticlesListActivity extends ListActivity {
 
 	private ArticleAdapter adapter;
 	private int numberOfLastAddedMembers;
-	public static Boolean enableInfiniteScroll;
+	public static Boolean enableInfiniteScroll =true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,14 +86,78 @@ public class ArticlesListActivity extends ListActivity {
 			firstVisibleItem + visibleItemCount >= totalItemCount;
 
 			if (loadMore && enableInfiniteScroll) {
-				 String page =
-				 UrlMaker.createGetNextFilteredURL(adapter.getItem(adapter.getCount()
-				 - 1).getId(), filterName, filterSurname, filterCity,
-				 filterSubjects);
-				 readWebpage(page);
+				 String page =UrlMaker.createGetNextFilteredURL(adapter.getItem(adapter.getCount()- 1).getArticleID());
+				 Log.i("string", page);
+				readWebpage(page);
 			}
 		}
 	};
+	
+	private class DownloadAndParseWebPageTask extends AsyncTask<String, Void, String>
+	{
+		@Override
+		protected String doInBackground(String... urls)
+		{
+			String response = "";
+			for (String url : urls)
+			{
+				Log.i("Lista", url);
+				DefaultHttpClient client = new DefaultHttpClient();
+				HttpGet httpGet = new HttpGet(url);
+				try
+				{
+					HttpResponse execute = client.execute(httpGet);
+					InputStream content = execute.getEntity().getContent();
+
+					BufferedReader buffer = new BufferedReader(
+							new InputStreamReader(content));
+					String s = "";
+					while ((s = buffer.readLine()) != null)
+					{
+						response += s;
+					}
+
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+			return response;
+		}
+
+		@Override
+		protected void onPostExecute(String result)
+		{
+			ArrayList<Article> tempArticles;
+			tempArticles = JsonParser.ParseArticles(result);
+			Log.i("Lista", "Downloadano: " + result);
+			if (tempArticles != null && tempArticles.size() > 0)
+			{
+				for (int i = 0; i < tempArticles.size(); i++)
+					adapter.add(tempArticles.get(i));
+			}
+			adapter.notifyDataSetChanged();
+			Log.i("Lista", "Dodano " + tempArticles.size() + " clanova.");
+			numberOfLastAddedMembers = tempArticles.size();
+		}
+	}
+	
+	DownloadAndParseWebPageTask task = null;
+	public void readWebpage(String URL)
+	{
+		if (task == null)
+		{
+			task = new DownloadAndParseWebPageTask();
+			task.execute(new String[] { URL });
+			Log.i("Lista", "Poslan ID " + adapter.getItem(adapter.getCount() - 1).getArticleID()+ " kao zadnji ID za GetNext.");
+		}
+		else if ((task.getStatus() == Status.FINISHED) && (numberOfLastAddedMembers != 0)) // if numberOfLastAddedMembers is zero there is no point in downloading more profiles
+		{
+			task = new DownloadAndParseWebPageTask();
+			task.execute(new String[] { URL });
+			Log.i("Lista", "Poslan ID " + adapter.getItem(adapter.getCount() - 1).getArticleID() + " kao zadnji ID za GetNext.");
+		}
+	}
 
 	private OnItemClickListener listlistener = new OnItemClickListener() {
 
