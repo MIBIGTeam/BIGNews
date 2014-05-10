@@ -2,22 +2,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    android:background="#EEEEEE"
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-    
-    <Button 
-        android:id="@+id/button"
-         android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:background="#0B3861"
+        android:id="@+id/upperLinearLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Newser"
+            android:textSize="35sp"
+            android:layout_margin="5dp"
+            android:textColor="#EEEEEE"
+            />
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:background="#0000"
+            android:src="@drawable/plus_button"
+            android:scaleType="centerInside"
+            />
+
+    </RelativeLayout>
+
+    <ListView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world"
-        />
+        android:id="@+id/listOfArticles"
+        android:background="#000000"
+        android:layout_below="@id/upperLinearLayout"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        >
+
+    </ListView>
 
 </RelativeLayout>
