@@ -1,5 +1,8 @@
 package com.hackathon.bigteam;
 
+import com.hackaton.model.Article;
+import com.hackaton.util.JsonParser;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -9,12 +12,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
-import android.webkit.WebView.FindListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ReadNews extends Activity {
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -22,10 +24,8 @@ public class ReadNews extends Activity {
 		setContentView(R.layout.activity_read_news);
 		
 		ReaderPagerAdapter swipeReader = new ReaderPagerAdapter(ReadNews.this);
-		ViewPager pager = (ViewPager) findViewById(R.id.readNewsToListButton);
+		ViewPager pager = (ViewPager) findViewById(R.id.singleArticlePager);
 		pager.setAdapter(swipeReader);
-		
-		
 	}
 
 	@Override
@@ -59,7 +59,16 @@ class ReaderPagerAdapter extends PagerAdapter{
             resId = R.id.scrollView;
             Intent intent = activity.getIntent();
     		String jsons = intent.getStringExtra("jsons");
+    		Article article = JsonParser.ParseArticle(jsons);
+    		
     		articlePicture = (ImageView) activity.findViewById(R.id.articlePicture);
+    		
+    		articleHeadline = (TextView) activity.findViewById(R.id.articleHeadline);
+    		articleHeadline.setText(article.getArticleHeadline());
+    		contentTextView = (TextView) activity.findViewById(R.id.contentTextView);
+    		contentTextView.setText(article.getArticleText());
+    		hashesTextView = (TextView) activity.findViewById(R.id.hashesTextView);
+    		hashesTextView.setText(article.getArticleText());
     		
     		//jsonParser a = JSONPAR.parseartice(jsons);
     		Log.i("TEST: ", jsons);

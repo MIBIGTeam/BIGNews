@@ -31,9 +31,9 @@ public class MainActivity extends Activity {
 				
 				NextScreen initializingFinished = new InitializingFinished(ReadNews.class);
 				HttpRequest request = new HttpRequest(MainActivity.this, initializingFinished, 2, true);
-				String url = UrlMaker.GetArticle();
+				String url = UrlMaker.GetArticle(3);
 				request.execute(url);
-				Log.i("MainActivity starta url: ", url);
+				Log.i("MainActivity starts url: ", url);
 				
 			}
 		});
