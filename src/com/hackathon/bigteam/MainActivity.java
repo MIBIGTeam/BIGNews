@@ -7,6 +7,7 @@ import com.hackaton.util.UrlMaker;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -26,20 +27,22 @@ public class MainActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 		 
+		Intent i = new Intent(MainActivity.this,AddNews.class);
+		startActivity(i);
 		
-		button.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				NextScreen initializingFinished = new InitializingFinished(ReadNews.class);
-				HttpRequest request = new HttpRequest(MainActivity.this, initializingFinished, 2, true);
-				String url = UrlMaker.GetArticle(3);
-				request.execute(url);
-				Log.i("MainActivity starts url: ", url);
-				
-			}
-		});
+//		button.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				
+//				NextScreen initializingFinished = new InitializingFinished(ReadNews.class);
+//				HttpRequest request = new HttpRequest(MainActivity.this, initializingFinished, 2, true);
+//				String url = UrlMaker.GetArticle(3);
+//				request.execute(url);
+//				Log.i("MainActivity starts url: ", url);
+//				
+//			}
+//		});
 	}
 
 	@Override

@@ -52,6 +52,7 @@
                 android:padding="50dp"
                 android:src="@drawable/add_picture_asset"
                 android:background="#0000"
+                android:onClick="addPictureButtonClicked"
                 />
 
 
