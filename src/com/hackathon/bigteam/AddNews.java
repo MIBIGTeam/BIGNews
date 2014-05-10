@@ -26,6 +26,7 @@ public class AddNews extends Activity {
 
 	String picturePath;
 	String imageUrl;
+	boolean hasPassed;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +57,18 @@ public class AddNews extends Activity {
 			@Override
 			public void done(ParseException arg0) {
 				if(arg0==null){
-					//TODO napravi ono s URLom
+					hasPassed = true;
 				}else{
-					arg0.printStackTrace();
+					hasPassed = false;
+					arg0.printStackTrace();					
 				}
 				
 			}
 		});
+		
+		if(hasPassed){
+			imageUrl = file.getUrl();
+		}
 		
 		/*ParseObject imgupload = new ParseObject("Image");
 		imgupload.put("Image", "picturePath");		
