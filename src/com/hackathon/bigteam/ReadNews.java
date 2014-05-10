@@ -17,6 +17,7 @@ public class ReadNews extends Activity {
 		
 		Intent intent = getIntent();
 		String jsons = intent.getStringExtra("jsons");
+		//jsonParser a = JSONPAR.parseartice(jsons);
 		Log.i("TEST: ", jsons);
 	}
 
