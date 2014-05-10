@@ -19,12 +19,12 @@ public class JsonParser {
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
 				article = new Article();
 				
-				article.setArticleID(jsonObject.getString("ArticleID"));
-				article.setArticleHeadline(jsonObject.getString("ArticleHeadline"));
-				article.setArticleText(jsonObject.getString("ArticleText"));
-				article.setArticleAuthor(jsonObject.getString("ArticleAuthor"));
-				article.setArticleDate(jsonObject.getString("ArticleDate"));
-				article.setPictureUrl(jsonObject.getString("PictureUrl"));
+				article.setArticleID(jsonObject.optString("ArticleID"));
+				article.setArticleHeadline(jsonObject.optString("ArticleHeadline"));
+				article.setArticleText(jsonObject.optString("ArticleText"));
+				article.setArticleAuthor(jsonObject.optString("ArticleAuthor"));
+				article.setArticleDate(jsonObject.optString("ArticleDate"));
+				article.setPictureUrl(jsonObject.optString("PictureUrl"));
 			}
 			
 		} catch (Exception e){
