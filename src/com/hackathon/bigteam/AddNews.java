@@ -26,6 +26,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.hackaton.util.BitmapDownloader;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
@@ -145,7 +146,8 @@ public class AddNews extends Activity {
 			image = readInFile(picturePath);
 		}else{
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			bitmap.compress(Bitmap.CompressFormat.PNG,100, stream);
+			bitmap = BitmapDownloader.Resize(bitmap, 256);
+				bitmap.compress(Bitmap.CompressFormat.PNG,100, stream);
 			image = stream.toByteArray();
 		}
 		
@@ -200,6 +202,7 @@ public class AddNews extends Activity {
 	    while ((bytes_read = input_stream.read(data, 0, data.length)) != -1) {
 	        buffer.write(data, 0, bytes_read);
 	    }
+	    
 	    input_stream.close();
 	    return buffer.toByteArray();
 
