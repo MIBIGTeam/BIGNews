@@ -2,28 +2,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="#000000"
     android:orientation="vertical"
     tools:context="com.hackaton.bigteam.ReadNews">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#0B3861" >
 
         <ImageButton
-            android:layout_marginTop="5dp"
+            android:id="@+id/addNewsToListButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/back"
-            android:scaleType="centerInside"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
             android:background="#00000000"
             android:padding="5dp"
-            android:id="@+id/addNewsToListButton"
-            />
-
-
-
-        </RelativeLayout>
+            android:scaleType="centerInside"
+            android:src="@drawable/back" />
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -59,7 +57,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:textSize="20sp"
-                android:textColor="#0B2161"/>
+                android:textColor="#DDDDDD"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -72,7 +70,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="Dodajte sadržaj..."
-                android:textColor="#0B2161"
+                android:textColor="#DDDDDD"
                 android:gravity="top"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
@@ -90,7 +88,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:text="Dodajte tagove..."
-                android:textColor="#0B2161"
+                android:textColor="#DDDDDD"
                 android:gravity="top"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"

@@ -6,7 +6,7 @@ public class UrlMaker {
 	
 	public static String GetArticle(int articleID) {
 		
-		return "http://trashnfun.com/News/getArticleById.php?&sigurnost=" + security + "&ArticleId=" + articleID;
+		return "http://trashnfun.com/News/getArticleById.php?&articleByAuthor=" + security + "&ArticleId=" + articleID;
 	}
 	
 }

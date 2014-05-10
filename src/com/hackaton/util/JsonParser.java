@@ -3,9 +3,6 @@ package com.hackaton.util;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.util.JsonReader;
-import android.util.Log;
-
 import com.hackaton.model.Article;
 
 public class JsonParser {
