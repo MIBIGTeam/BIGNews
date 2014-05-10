@@ -7,5 +7,6 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_add_news">AddNews</string>
     <string name="title_activity_read_news">ReadNews</string>
+    <string name="title_activity_articles_list">ArticlesListActivity</string>
 
 </resources>

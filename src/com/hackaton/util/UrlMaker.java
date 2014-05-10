@@ -9,4 +9,9 @@ public class UrlMaker {
 		return "http://trashnfun.com/News/getArticleById.php?&articleByAuthor=" + security + "&ArticleId=" + articleID;
 	}
 	
+	public static String GetXArticles() {
+		
+		return "http://trashnfun.com/News/getXArticles.php?articleByAuthor=" + security;
+	}
+	
 }

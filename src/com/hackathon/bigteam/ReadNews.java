@@ -9,10 +9,8 @@ import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,9 +25,7 @@ public class ReadNews extends Activity {
 		
 		ReaderPagerAdapter swipeReader = new ReaderPagerAdapter(ReadNews.this);
 		ViewPager pager = (ViewPager) findViewById(R.id.singleArticlePager);
-		
 		pager.setAdapter(swipeReader);
-		pager.setCurrentItem(0);
 	}
 
 	@Override
@@ -49,49 +45,46 @@ class ReaderPagerAdapter extends PagerAdapter{
 	private TextView contentTextView;
 	private TextView hashesTextView;
 	
-	private LayoutInflater inflater;
+	
 	private Activity activity;
 	
 	public ReaderPagerAdapter (Activity activity){
-
 		this.activity = activity;
 	}
 	
-	
-	@Override
-	public Object instantiateItem(ViewGroup collection, int position){
-			View v = LayoutInflater.from(activity).inflate(R.layout.single_article, null);
+	public Object instatiateItem(View collection, int position){
 		
-		    int view = R.layout.single_article;
+		
+		 int resId = 0;
+            resId = R.id.scrollView;
             Intent intent = activity.getIntent();
     		String jsons = intent.getStringExtra("jsons");
-    		Log.i("T555EST: ", jsons);
-    		Article article = JsonParser.ParseArticle(jsons);
-    		Log.i("TEST: ", "tu");
-    		articlePicture = (ImageView) v.findViewById(R.id.articlePicture);
+    		Article article = JsonParser.ParseArticles(jsons).get(0);
     		
-    		articleHeadline = (TextView) v.findViewById(R.id.articleHeadline);
+    		articlePicture = (ImageView) activity.findViewById(R.id.articlePicture);
+    		
+    		articleHeadline = (TextView) activity.findViewById(R.id.articleHeadline);
     		articleHeadline.setText(article.getArticleHeadline());
-    		contentTextView = (TextView) v.findViewById(R.id.contentTextView);
+    		contentTextView = (TextView) activity.findViewById(R.id.contentTextView);
     		contentTextView.setText(article.getArticleText());
-    		hashesTextView = (TextView) v.findViewById(R.id.hashesTextView);
-    		hashesTextView.setText(article.getArticleDate());
+    		hashesTextView = (TextView) activity.findViewById(R.id.hashesTextView);
+    		hashesTextView.setText(article.getArticleText());
     		
     		//jsonParser a = JSONPAR.parseartice(jsons);
-    		((ViewPager) collection).addView(v);
-        return v;
-       
+    		Log.i("TEST: ", jsons);
+    		Log.i("TEST ko je autor: ", article.getArticleAuthor());
+        
+        return activity.findViewById(resId);
 	}
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 2;
+		return 0;
 	}
 
 	@Override
 	public boolean isViewFromObject(View arg0, Object arg1) {
 		// TODO Auto-generated method stub
-		Log.i("TEST: ", "tutututusfdsfsf");
 		return arg0 == ((View) arg1);
 	}
 	

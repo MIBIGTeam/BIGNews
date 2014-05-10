@@ -5,21 +5,13 @@ import com.hackaton.util.InitializingFinished;
 import com.hackaton.util.NextScreen;
 import com.hackaton.util.UrlMaker;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.ListView;
 
 public class MainActivity extends Activity {
-
-	private Button button;
-	private ListView articleList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +19,11 @@ public class MainActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 		 
-		Intent i = new Intent(MainActivity.this,AddNews.class);
-		startActivity(i);
+		NextScreen initializingFinished = new InitializingFinished(ArticlesListActivity.class);
+		HttpRequest request = new HttpRequest(MainActivity.this, initializingFinished, 0, true);
+		String url = UrlMaker.GetXArticles();
+		request.execute(url);
+		Log.i("MainActivity starts url: ", url);
 		
 //		button.setOnClickListener(new OnClickListener() {
 //			
