@@ -43,13 +43,14 @@
             android:layout_height="wrap_content"
             >
 
-            <ImageView
+            <ImageButton
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:id="@+id/addPictureImageView"
                 android:scaleType="centerCrop"
                 android:padding="50dp"
                 android:src="@drawable/add_picture_asset"
+                android:background="#0000"
                 />
 
 
