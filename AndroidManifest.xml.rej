@@ -1,0 +1,9 @@
+diff a/AndroidManifest.xml b/AndroidManifest.xml	(rejected hunks)
+@@ -9,7 +9,6 @@
+         android:targetSdkVersion="17" />
+ 
+     <application
+-         android:allowBackup="true" 
+         android:allowBackup="true"
+         android:icon="@drawable/ic_launcher"
+         android:label="@string/app_name" >
