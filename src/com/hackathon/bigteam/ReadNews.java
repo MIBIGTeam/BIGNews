@@ -68,11 +68,11 @@ class ReaderPagerAdapter extends PagerAdapter{
     		articlePicture = (ImageView) v.findViewById(R.id.articlePicture);
     		
     		articleHeadline = (TextView) v.findViewById(R.id.articleHeadline);
-    		articleHeadline.setText(article.getArticleHeadline());
+    		articleHeadline.setText(article.getArticleHeadline().trim());
     		contentTextView = (TextView) v.findViewById(R.id.contentTextView);
-    		contentTextView.setText(article.getArticleText());
+    		contentTextView.setText(article.getArticleText().trim());
     		hashesTextView = (TextView) v.findViewById(R.id.hashesTextView);
-    		hashesTextView.setText(article.getArticleAuthor());
+    		hashesTextView.setText(article.getArticleAuthor().trim());
     		
     	
     		Log.i("TEST: ", jsons);

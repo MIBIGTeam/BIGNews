@@ -39,7 +39,7 @@
                     android:id="@+id/articleHeadline"
                     android:layout_alignParentBottom="true"
                     android:text="Naslov"
-                    android:textSize="40sp"/>
+                    android:textSize="25sp"/>
 
             </RelativeLayout>
         </FrameLayout>
