@@ -49,17 +49,17 @@
                 android:layout_height="200dp"
                 android:id="@+id/addPictureImageView"
                 android:scaleType="centerCrop"
-                android:padding="50dp"
                 android:src="@drawable/add_picture_asset"
                 android:background="#0000"
                 android:onClick="addPictureButtonClicked"
+                android:contentDescription="Slika"
                 />
 
 
             <EditText
                 android:layout_width="match_parent"
                 android:inputType="text"
-                android:text="Dodajte naslov..."
+                android:hint="Dodajte naslov..."
                 android:layout_height="wrap_content"
                 android:id="@+id/addHeadlineEditText"
                 android:layout_below="@id/addPictureImageView"
@@ -83,7 +83,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="Dodajte sadržaj..."
+                android:hint="Dodajte sadržaj..."
                 android:textColor="#DDDDDD"
                 android:gravity="top"
                 android:paddingLeft="10dp"
@@ -101,7 +101,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:text="Dodajte tagove..."
+                android:hint="Dodajte tagove..."
                 android:textColor="#DDDDDD"
                 android:gravity="top"
                 android:paddingLeft="10dp"

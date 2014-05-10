@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -22,6 +23,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
@@ -36,7 +39,8 @@ public class AddNews extends Activity {
 	static boolean flag = false;
 	Bitmap bitmap = null;
 	String imageUrl;
-	boolean hasPassed;
+	boolean hasPassed = false;
+	ImageView headerImage;
 
 	AlertDialog dial;
 	@Override
@@ -45,7 +49,7 @@ public class AddNews extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_add_news);
 		Parse.initialize(this, "pW2LSNJN29SgorrElj4Ij40WfD5Llvao1OXNf1PS", "gshhHu0PMzLeeLighk4LQqAb3mio8zf0yqCnuXbO");
-
+		headerImage = (ImageView) findViewById(R.id.addPictureImageView);
 		
 		AlertDialog.Builder dialog = new AlertDialog.Builder(AddNews.this);
 		dialog.setMessage("Odaberite odakle želite uèitati sliku?")
@@ -56,10 +60,8 @@ public class AddNews extends Activity {
 	        	   
 	        	   Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 	 			  intent.setType("image/*");
-	 			  startActivityForResult(intent, 0);
-
-	        	   
-	        	   
+	 			  startActivityForResult(intent, 0);     	   
+      	  
 	           }
 	       });
 		
@@ -103,6 +105,8 @@ public class AddNews extends Activity {
 
 	             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 	             picturePath = cursor.getString(columnIndex); // file path of selected image
+	             bitmap = BitmapFactory.decodeFile(picturePath);
+	             headerImage.setImageBitmap(bitmap);
 	             cursor.close();
 	             
 	            Log.i("tu u slici", picturePath);
@@ -111,9 +115,11 @@ public class AddNews extends Activity {
 	        }
 	    case REQUEST_IMAGE_CAPTURE:
 	    	if (resultCode == RESULT_OK) {
-	            Bundle extras = imageReturnedIntent.getExtras();
-	            bitmap = (Bitmap) extras.get("data");
+	            
+	            bitmap = (Bitmap) imageReturnedIntent.getExtras().get("data");
+	            
 	            flag = true;
+	            headerImage.setImageBitmap(bitmap);
 	            Log.i("tu u kameri", flag+"");
 		        break;
 	        }
@@ -133,28 +139,48 @@ public class AddNews extends Activity {
 	
 	public void publishButtonClicked(View view)throws IOException{		
 		
-		byte[] image = readInFile(picturePath);
+		byte[] image;
+		
+		if(!flag){
+			image = readInFile(picturePath);
+		}else{
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			bitmap.compress(Bitmap.CompressFormat.PNG,100, stream);
+			image = stream.toByteArray();
+		}
 		
 		
-		ParseFile file = new ParseFile("articlePicture", image);
-		
+		final ParseFile file = new ParseFile("articlePicture", image);
+		Log.i("Nesto", "tu sam");
+		final ProgressDialog prog = new ProgressDialog(this);
+		prog.setTitle("Loading");
+		prog.setMessage("Ucitavam...");
+		prog.show();
 		file.saveInBackground(new SaveCallback() {
 			
 			@Override
 			public void done(ParseException arg0) {
 				if(arg0==null){
-					hasPassed = true;
+					imageUrl = file.getUrl();
+					ParseObject imgupload = new ParseObject("Image");
+					imgupload.put("Image", "picturePath");		
+					imgupload.put("ImageFile", file);		
+					imgupload.saveInBackground();
+					Log.i("Nesto", imageUrl);
 				}else{
 					hasPassed = false;
 					arg0.printStackTrace();					
-				}
-				
+				}				
+				runOnUiThread(new Runnable() {					
+					@Override
+					public void run() {
+						prog.dismiss();						
+					}
+				});
 			}
 		});
 		
-		if(hasPassed){
-			imageUrl = file.getUrl();
-		}
+		
 		
 		/*ParseObject imgupload = new ParseObject("Image");
 		imgupload.put("Image", "picturePath");		
