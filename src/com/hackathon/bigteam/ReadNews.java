@@ -28,6 +28,15 @@ public class ReadNews extends Activity {
 		ViewPager pager = (ViewPager) findViewById(R.id.singleArticlePager);
 		pager.setAdapter(swipeReader);
 	}
+	
+	public void onClickLike(View view){
+		
+	}
+	
+	
+	public void OnClickDislike(View view){
+		
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

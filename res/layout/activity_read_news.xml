@@ -38,8 +38,12 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginRight="10dp"
+<<<<<<< HEAD
                 android:background="@drawable/button_selector"
                 android:contentDescription="thumbUp"
+=======
+                android:onClick="onClickLike"
+>>>>>>> 3f26dd6b47597fd431faf9451605e2874d7e28de
                 android:padding="2dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/thumbup" />
@@ -48,9 +52,13 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
+<<<<<<< HEAD
                 android:layout_marginRight="10dp"
                 android:background="@drawable/button_selector"
                 android:contentDescription="thumbDown"
+=======
+                android:onClick="onClickDislike"
+>>>>>>> 3f26dd6b47597fd431faf9451605e2874d7e28de
                 android:padding="2dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/thumbdown" />
