@@ -6,6 +6,7 @@ import java.net.URL;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 public class BitmapDownloader {
 
@@ -25,8 +26,7 @@ public class BitmapDownloader {
 		Bitmap bmp = null;
 		try
 		{
-			Bitmap downloaded = BitmapFactory.decodeStream(tUrl
-					.openConnection().getInputStream());
+			Bitmap downloaded = BitmapFactory.decodeStream(tUrl.openConnection().getInputStream());
 			// keeps the aspect ratio
 			bmp = Resize(downloaded, hPixels);
 		} catch (IOException e)

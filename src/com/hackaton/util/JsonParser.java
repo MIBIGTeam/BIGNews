@@ -27,7 +27,7 @@ public class JsonParser {
 				article.setArticleText(jsonObject.optString("ArticleText"));
 				article.setArticleAuthor(jsonObject.optString("ArticleAuthor"));
 				article.setArticleDate(jsonObject.optString("ArticleDate"));
-				article.setPictureUrl(jsonObject.optString("PictureUrl"));
+				article.setPictureUrl("http://" + jsonObject.optString("PictureUrl"));
 				articles.add(article);
 			}
 			
