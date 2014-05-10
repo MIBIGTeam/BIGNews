@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -52,34 +53,38 @@ class ReaderPagerAdapter extends PagerAdapter{
 		this.activity = activity;
 	}
 	
-	public Object instatiateItem(View collection, int position){
+	@Override
+	public Object instantiateItem(View collection, int position){
 		
 		
-		 int resId = 0;
-            resId = R.id.scrollView;
+		 	View v = LayoutInflater.from(activity).inflate(R.layout.single_article, null);
+            
             Intent intent = activity.getIntent();
     		String jsons = intent.getStringExtra("jsons");
+    		
+    		
     		Article article = JsonParser.ParseArticles(jsons).get(0);
+    		Log.i("jdjddj", article.getArticleHeadline());
+    		articlePicture = (ImageView) v.findViewById(R.id.articlePicture);
     		
-    		articlePicture = (ImageView) activity.findViewById(R.id.articlePicture);
-    		
-    		articleHeadline = (TextView) activity.findViewById(R.id.articleHeadline);
+    		articleHeadline = (TextView) v.findViewById(R.id.articleHeadline);
     		articleHeadline.setText(article.getArticleHeadline());
-    		contentTextView = (TextView) activity.findViewById(R.id.contentTextView);
+    		contentTextView = (TextView) v.findViewById(R.id.contentTextView);
     		contentTextView.setText(article.getArticleText());
-    		hashesTextView = (TextView) activity.findViewById(R.id.hashesTextView);
-    		hashesTextView.setText(article.getArticleText());
+    		hashesTextView = (TextView) v.findViewById(R.id.hashesTextView);
+    		hashesTextView.setText(article.getArticleAuthor());
     		
-    		//jsonParser a = JSONPAR.parseartice(jsons);
+    	
     		Log.i("TEST: ", jsons);
     		Log.i("TEST ko je autor: ", article.getArticleAuthor());
-        
-        return activity.findViewById(resId);
+    		((ViewPager) collection).addView(v);
+    		
+    		return v;
 	}
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 	@Override
