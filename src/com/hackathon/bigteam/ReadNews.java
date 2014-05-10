@@ -72,6 +72,7 @@ class ReaderPagerAdapter extends PagerAdapter{
     		
     		//jsonParser a = JSONPAR.parseartice(jsons);
     		Log.i("TEST: ", jsons);
+    		Log.i("TEST ko je autor: ", article.getArticleAuthor());
         
         return activity.findViewById(resId);
 	}
