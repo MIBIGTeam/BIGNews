@@ -58,4 +58,10 @@ public class UrlMaker {
 				+ security;
 
 	}
+
+	public static String getArticlesByTag(String tag) {
+		return "http://trashnfun.com/News/getArticlesByTag.php?articleByAuthor="
+				+ security + "&Tag=" + tag;
+
+	}
 }
