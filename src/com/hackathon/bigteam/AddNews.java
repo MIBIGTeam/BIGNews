@@ -106,6 +106,7 @@ public class AddNews extends Activity {
 	public void returnToListActivity(View view){
 		Intent returne = new Intent(this, ArticlesListActivity.class);
 		startActivity(returne);
+		//help
 	}
 	
 	public void addPictureButtonClicked (View view) {
