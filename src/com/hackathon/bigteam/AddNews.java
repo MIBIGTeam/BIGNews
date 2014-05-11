@@ -236,7 +236,7 @@ public class AddNews extends Activity {
 			String response = "";
 			for (String url : urls)
 			{
-				Log.i("Lista", url);
+				Log.i("AddNews", url);
 				DefaultHttpClient client = new DefaultHttpClient();
 				HttpGet httpGet = new HttpGet(url);
 				try
@@ -263,6 +263,7 @@ public class AddNews extends Activity {
 		@Override
 		protected void onPostExecute(String result)
 		{
+			Log.i("AddNews starts url: ", result);
 			String tmp = UrlMaker.createAddTagsToArticle(result, tags.getText().toString());
 			NextScreen initializingFinished = new InitializingFinished(ArticlesListActivity.class);
 			HttpRequest request = new HttpRequest(AddNews.this, initializingFinished, 0, true);
@@ -276,6 +277,5 @@ public class AddNews extends Activity {
 	{
 		task = new DownloadAndParseWebPageTask();
 		task.execute(new String[] { URL });
-		Log.i("AddNews", "Poslan addArticle.php");
 	}
 }
