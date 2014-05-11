@@ -92,7 +92,7 @@ public class ReadNews extends Activity {
 		}
 
 	}
-<<<<<<< HEAD
+
 
 	public void onClickDislike(View view) {
 		Log.i("dislajk", current + "");
@@ -131,7 +131,8 @@ public class ReadNews extends Activity {
 					String.valueOf(-1));
 			hp.execute(url);
 		}
-=======
+
+	}
 	
 	public void readNewsToListButton(View view){
 		Intent inte = new Intent(this, ArticlesListActivity.class);
@@ -139,10 +140,7 @@ public class ReadNews extends Activity {
 	}
 	
 	
-	public void OnClickDislike(View view){
-		
->>>>>>> 31b3f291ccd346808156d621ddafeffde8d884e3
-	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
