@@ -1,5 +1,9 @@
 package com.hackaton.util;
 
+import android.util.Log;
+
+
+
 public class UrlMaker {
 
 	private static String security = "2e435d9b2aae179ca7f5d3993b0a76c80a17e8cd";
@@ -17,9 +21,11 @@ public class UrlMaker {
 	}
 
 	public static String UpdateRating(String articleId, String sum) {
-
-		return "http://trashnfun.com/News/editRating.php?articleByAuthor="
-				+ security + "&ArticleId=" + articleId + "&Sum=" + sum;
+		
+		
+		Log.i("sksks",articleId + "  " + sum);
+		return "http://trashnfun.com/News/editRating.php?articleByAuthor=2e435d9b2aae179ca7f5d3993b0a76c80a17e8cd"
+			 + "&ArticleId=" + articleId + "&Sum=" + sum;
 
 	}
 	

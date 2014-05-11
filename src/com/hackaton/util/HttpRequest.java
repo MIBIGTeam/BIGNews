@@ -14,6 +14,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class HttpRequest extends AsyncTask<String, String, String> {
 
@@ -41,6 +42,7 @@ public class HttpRequest extends AsyncTask<String, String, String> {
 		{
 			prgDlg.setTitle("Molimo prièekajte");
 			prgDlg.setMessage("Uèitavam podatke!");
+			
 			//prgDlg.setIcon(R.drawable.icon_search);	
 			prgDlg.show();
 		}
@@ -98,7 +100,11 @@ public class HttpRequest extends AsyncTask<String, String, String> {
 	protected void onPostExecute(String result)
 	{
 		super.onPostExecute(result);
-		nextScreen.runScreen(activity, result);	
+		try {
+			nextScreen.runScreen(activity, result);	
+		} catch (Exception e) {
+			Log.i("oèekivano", ":)");
+		}
 		prgDlg.cancel();
 	}
 	
