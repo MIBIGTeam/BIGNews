@@ -12,20 +12,19 @@ import android.view.Menu;
 import android.view.Window;
 
 public class MainActivity extends Activity {
-	
+	boolean hasBeenOpened = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
-		 
+		 	
+		
 		NextScreen initializingFinished = new InitializingFinished(ArticlesListActivity.class);
-		HttpRequest request = new HttpRequest(MainActivity.this, initializingFinished, 0, true);
+		HttpRequest request = new HttpRequest(MainActivity.this, initializingFinished, 0, false);
 		String url = UrlMaker.GetXArticles();
 		request.execute(url);
 		Log.i("MainActivity starts url: ", url);
-		
-
 	}
 
 	@Override

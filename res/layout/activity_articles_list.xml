@@ -11,7 +11,22 @@
         android:layout_height="50dp"
         android:background="#333"
         android:orientation="horizontal" >
-        
+       
+       <ImageButton 
+           android:contentDescription="@string/addnewarticlebutton"
+           android:layout_width="40dp"
+           android:layout_height="match_parent"
+           android:background="@drawable/button_selector"
+           android:layout_alignParentLeft="true"
+		   android:layout_centerVertical="true"
+		   android:layout_marginRight="5dp"
+		   android:src="@drawable/refresh_button"
+		   android:layout_marginLeft="10dp"
+		   android:scaleType="centerInside"
+		   android:onClick="refreshButtonClicked"
+           />
+       
+       
        <ImageView 
             android:contentDescription="@string/logo"
             android:layout_width="wrap_content"

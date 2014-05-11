@@ -83,6 +83,10 @@ public class ArticlesListActivity extends ListActivity {
 		Intent intten = new Intent(this, AddNews.class);
 		startActivity(intten);
 	}
+	
+	public void refreshButtonClicked(View view){
+		//TODO Ivane ispuni ovo!!!
+	}
 
 	private OnScrollListener scrollListener = new OnScrollListener() {
 
