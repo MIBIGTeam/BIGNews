@@ -20,6 +20,7 @@ import android.provider.MediaStore;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -31,6 +32,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.hackaton.util.BitmapDownloader;
 import com.hackaton.util.HttpRequest;
@@ -95,6 +97,8 @@ public class AddNews extends Activity {
 		
 		 dial = dialog.create();
 	}
+	
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -200,9 +204,23 @@ public class AddNews extends Activity {
 					@Override
 					public void run() {
 						prog.dismiss();
-												
-						String tmp = UrlMaker.createAddArticleURL(headline.getText().toString(), content.getText().toString(), imageUrl, author.getText().toString());
-						readWebpage(tmp);						
+										
+						String naslov = headline.getText().toString();
+						String text = content.getText().toString();
+						String autor = author.getText().toString();
+						
+						if(!naslov.equals("")&&!text.equals("")&&!autor.equals("")&&!imageUrl.equals(null)){
+							String tmp = UrlMaker.createAddArticleURL(naslov, text, imageUrl, autor);
+							readWebpage(tmp);
+						}else{
+							Context context = getApplicationContext();
+							CharSequence text2 = "Polja ne smiju biti prazna!";
+							int duration = Toast.LENGTH_SHORT;
+							
+							Toast toast = Toast.makeText(context, text2, duration);
+							toast.show();
+						}				
+										
 					}
 				});
 			}

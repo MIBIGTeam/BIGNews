@@ -52,6 +52,11 @@ public class ReadNews extends Activity {
 		
 	}
 	
+	public void readNewsToListButton(View view){
+		Intent inte = new Intent(this, ArticlesListActivity.class);
+		startActivity(inte);
+	}
+	
 	
 	public void OnClickDislike(View view){
 		
