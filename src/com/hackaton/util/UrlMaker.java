@@ -32,10 +32,12 @@ public class UrlMaker {
 
 	public static String createAddArticleURL(String headline, String text,
 			String imageURL, String author) {
-
+		
+		imageURL = imageURL.replace("http://", "");
+		
 		return "http://trashnfun.com/News/addArticle.php?ArticleHeadline="
 				+ headline + "&ArticleText=" + text + "&Author=" + author
-				+ "&PictureUrl" + imageURL + "&articleByAuthor=" + security;
+				+ "&PictureUrl=" + imageURL + "&articleByAuthor=" + security;
 	}
 
 	public static String createAddTagsToArticle(String articleID, String tags) {

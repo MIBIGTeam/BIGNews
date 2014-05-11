@@ -205,11 +205,11 @@ public class ArticlesListActivity extends ListActivity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View v = convertView;
-			if (v == null) {
 				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = vi.inflate(R.layout.single_listview_item, null);
-			}
-			 Article o = items.get(position);
+				
+			Article o = items.get(position);
+			
 			if (o != null) {
 				TextView tt = (TextView) v.findViewById(R.id.listViewHeadline);
 				tt.setText(o.getArticleHeadline());
