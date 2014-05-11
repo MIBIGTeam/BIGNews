@@ -46,33 +46,32 @@
         </FrameLayout>
 
         <TextView
+            android:id="@+id/contentTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/contentTextView"
             android:layout_below="@id/framePictureLayoutUpper"
-            android:paddingBottom="10dp"
+            android:background="#000000"
             android:lineSpacingExtra="4dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:textSize="16sp"
-            android:background="#000000"
-            android:textColor="#bbbbbb"/>
+            android:paddingTop="10dp"
+            android:textColor="#bbbbbb"
+            android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/hashesTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/hashesTextView"
             android:layout_below="@id/contentTextView"
-            android:paddingBottom="10dp"
+            android:background="#000000"
             android:lineSpacingExtra="4dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:textSize="16sp"
-            android:background="#000000"
-            android:textColor="#bbbbbb"/>
+            android:paddingTop="10dp"
+            android:textColor="#bbbbbb"
+            android:textSize="16sp" />
+
     </RelativeLayout>
 </ScrollView>
