@@ -15,5 +15,12 @@
     <string name="dodajte_tagove">Dodajte tagove...</string>
     <string name="addnewarticlebutton">addNewArticleButton</string>
     <string name="backbutton">backButton</string>
+    <string name="likebutton">likeButton</string>
+    <string name="dislikebutton">dislikeButton</string>
+    <string name="imageofarticle">imageOfArticle</string>
+    <string name="naslov">Naslov</string>
+    <string name="pictureofarticle">pictureOfArticle</string>
+    <string name="slika">Slika</string>
+    <string name="logo">logo</string>
 
 </resources>

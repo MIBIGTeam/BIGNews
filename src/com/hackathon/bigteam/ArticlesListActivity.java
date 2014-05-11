@@ -71,6 +71,11 @@ public class ArticlesListActivity extends ListActivity {
 			getListView().setOnScrollListener(scrollListener);
 		}
 	}
+	
+	public void listArticlesToAddArticlesClicked(View view){
+		Intent intten = new Intent(this, AddNews.class);
+		startActivity(intten);
+	}
 
 	private OnScrollListener scrollListener = new OnScrollListener() {
 
