@@ -135,8 +135,8 @@ public class ReadNews extends Activity {
 	}
 	
 	public void readNewsToListButton(View view){
-		Intent inte = new Intent(this, ArticlesListActivity.class);
-		startActivity(inte);
+		setResult(RESULT_OK, null);
+		finish();
 	}
 	
 	
