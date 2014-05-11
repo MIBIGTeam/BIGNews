@@ -30,9 +30,22 @@ public class ReadNews extends Activity {
 		setContentView(R.layout.activity_read_news);
 		
 		
+		
 		ReaderPagerAdapter swipeReader = new ReaderPagerAdapter(ReadNews.this,articles.size(),articles);
 		ViewPager pager = (ViewPager) findViewById(R.id.singleArticlePager);
 		pager.setAdapter(swipeReader);
+		
+		
+		
+		
+		for(int i = 0; i< articles.size() ; i++){
+			if(id == articles.get(i).getArticleID()){
+				pager.setCurrentItem(i);
+			}
+		}
+		
+		
+		
 	}
 	
 	public void onClickLike(View view){

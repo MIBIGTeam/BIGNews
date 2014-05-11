@@ -179,15 +179,6 @@ public class ArticlesListActivity extends ListActivity {
 
 			Article article = (Article) parent.getItemAtPosition(position);
 
-//			NextScreen initializingFinished = new InitializingFinished(
-//					ReadNews.class);
-//			HttpRequest request = new HttpRequest(ArticlesListActivity.this,
-//					initializingFinished, 0, true);
-//			
-//			
-//			
-//			String url = UrlMaker.GetArticle(article.getArticleID());
-//			request.execute(url);
 			ReadNews.id = article.getArticleID();
 			ReadNews.articles = articles;
 			Intent i = new Intent(ArticlesListActivity.this,ReadNews.class);
@@ -196,30 +187,7 @@ public class ArticlesListActivity extends ListActivity {
 		}
 	};
 	
-	private Bitmap bit;
-	
-	private Article art;
-	private Target target = new Target() {
-		
-		
-	     @Override
-	     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-	    	  bit = bitmap;
-	    
-	    	  
-	     }
-	     
-		@Override
-		public void onBitmapFailed(Drawable arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-		@Override
-		public void onPrepareLoad(Drawable arg0) {
-			
-			
-		}
-	};
+
 	
 	
 	private class ArticleAdapter extends ArrayAdapter<Article> {
