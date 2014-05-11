@@ -103,6 +103,11 @@ public class AddNews extends Activity {
 		return true;
 	}
 	
+	public void returnToListActivity(View view){
+		Intent returne = new Intent(this, ArticlesListActivity.class);
+		startActivity(returne);
+	}
+	
 	public void addPictureButtonClicked (View view) {
 		 
 		dial.show();

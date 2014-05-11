@@ -1,5 +1,7 @@
 package com.hackaton.model;
 
+import android.graphics.Bitmap;
+
 public class Article {
 	
 	private int ArticleID;
@@ -8,7 +10,14 @@ public class Article {
 	private String ArticleAuthor;
 	private String ArticleDate;
 	private String PictureUrl;
+	private Bitmap bitmap;
 	
+	public Bitmap getBitmap() {
+		return bitmap;
+	}
+	public void setBitmap(Bitmap bitmap) {
+		this.bitmap = bitmap;
+	}
 	public int getArticleID() {
 		return ArticleID;
 	}
