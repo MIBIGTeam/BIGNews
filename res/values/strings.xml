@@ -22,5 +22,6 @@
     <string name="pictureofarticle">pictureOfArticle</string>
     <string name="slika">Slika</string>
     <string name="logo">logo</string>
+    <string name="ime_autora">Ime autora...</string>
 
 </resources>
