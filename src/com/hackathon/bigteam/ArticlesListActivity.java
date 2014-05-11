@@ -68,9 +68,20 @@ public class ArticlesListActivity extends ListActivity {
 
 		setContentView(R.layout.activity_articles_list);
 
-		articles = new ArrayList<Article>();
+		// run = new Runnable() {
+		// @Override
+		// public void run() {
+		//
+		//
+		// String tmp = UrlMaker.GetXArticles();
+		// getListView().invalidate();
+		// adapter.notifyDataSetInvalidated();
+		// adapter.notifyDataSetChanged();
+		//
+		// }
+		// };
 
-		 articles = new ArrayList<Article>();
+		articles = new ArrayList<Article>();
 
 		Intent intent = getIntent();
 		articles = JsonParser.ParseArticles(intent.getStringExtra("jsons"));
@@ -90,10 +101,11 @@ public class ArticlesListActivity extends ListActivity {
 
 	public void listArticlesToAddArticlesClicked(View view) {
 		Intent intten = new Intent(this, AddNews.class);
-		startActivity(intten);
+		startActivityForResult(intten, RESULT_OK);
 	}
 
 	@Override
+<<<<<<< HEAD
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
      super.onActivityResult(requestCode, resultCode, data);
      if(resultCode==RESULT_OK){
@@ -157,8 +169,28 @@ public class ArticlesListActivity extends ListActivity {
 	
 	
 	public void refreshButtonClicked(View view){
+=======
+	protected void onResume() {
+		super.onResume();
+		Log.i("kfkfk", "tu sam se u resumeu");
+		refreshButtonClicked(null);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == RESULT_OK) {
+			if (resultCode == RESULT_OK) {
+				Log.i("kfkfk", "tu sam se stvorija");
+				refreshButtonClicked(null);
+			}
+		}
+	}
+
+	public void refreshButtonClicked(View view) {
+>>>>>>> 0d0337e00ad4ac7f4d1deda37e0196997d1f95ca
 		String tmp = UrlMaker.GetXArticles();
-		HttpRequest	ht = new HttpRequest(ArticlesListActivity.this, null, 0, true);
+		HttpRequest ht = new HttpRequest(ArticlesListActivity.this, null, 0,
+				true);
 		String json;
 		try {
 			json = ht.execute(tmp).get();
@@ -172,7 +204,9 @@ public class ArticlesListActivity extends ListActivity {
 		} catch (ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+
+		}
+
 	}
 
 	private OnScrollListener scrollListener = new OnScrollListener() {
@@ -278,6 +312,9 @@ public class ArticlesListActivity extends ListActivity {
 			ReadNews.id = article.getArticleID();
 			ReadNews.articles = articles;
 			Intent i = new Intent(ArticlesListActivity.this, ReadNews.class);
+
+			startActivityForResult(i, RESULT_OK);
+
 			startActivity(i);
 
 		}

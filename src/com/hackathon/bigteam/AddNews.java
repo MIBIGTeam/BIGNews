@@ -110,7 +110,7 @@ public class AddNews extends Activity {
 
 	public void returnToListActivity(View view) {
 		Log.i("tu san opalija return", "lalala");
-		setResult(RESULT_OK);
+		setResult(RESULT_OK, null);
 		finish();
 	}
 
