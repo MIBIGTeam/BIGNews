@@ -22,7 +22,8 @@ public class UrlMaker {
 				+ security + "&ArticleId=" + articleId + "&Sum=" + sum;
 
 	}
-
+	
+	
 	public static String createGetNextFilteredURL(int articleID) {
 		
 		return "http://trashnfun.com/News/getNext15Articles.php?articleByAuthor="+security+"&ArticleId="+articleID;
