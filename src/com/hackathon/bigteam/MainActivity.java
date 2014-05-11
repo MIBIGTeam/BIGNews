@@ -25,19 +25,7 @@ public class MainActivity extends Activity {
 		request.execute(url);
 		Log.i("MainActivity starts url: ", url);
 		
-//		button.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				
-//				NextScreen initializingFinished = new InitializingFinished(ReadNews.class);
-//				HttpRequest request = new HttpRequest(MainActivity.this, initializingFinished, 2, true);
-//				String url = UrlMaker.GetArticle(3);
-//				request.execute(url);
-//				Log.i("MainActivity starts url: ", url);
-//				
-//			}
-//		});
+
 	}
 
 	@Override

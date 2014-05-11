@@ -1,6 +1,7 @@
 package com.hackathon.bigteam;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -19,12 +20,16 @@ import com.hackaton.util.InitializingFinished;
 import com.hackaton.util.JsonParser;
 import com.hackaton.util.NextScreen;
 import com.hackaton.util.UrlMaker;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
@@ -46,6 +51,8 @@ public class ArticlesListActivity extends ListActivity {
 	private ArticleAdapter adapter;
 	private int numberOfLastAddedMembers;
 	public static Boolean enableInfiniteScroll =true;
+	private ArrayList<Article> articles = null;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +61,7 @@ public class ArticlesListActivity extends ListActivity {
 
 		setContentView(R.layout.activity_articles_list);
 
-		ArrayList<Article> articles = new ArrayList<Article>();
+		 articles = new ArrayList<Article>();
 
 		Intent intent = getIntent();
 		articles = JsonParser.ParseArticles(intent.getStringExtra("jsons"));
@@ -172,16 +179,49 @@ public class ArticlesListActivity extends ListActivity {
 
 			Article article = (Article) parent.getItemAtPosition(position);
 
-			NextScreen initializingFinished = new InitializingFinished(
-					ReadNews.class);
-			HttpRequest request = new HttpRequest(ArticlesListActivity.this,
-					initializingFinished, 0, true);
-			String url = UrlMaker.GetArticle(article.getArticleID());
-			request.execute(url);
-			Log.i("ArticlesListActivity starts url: ", url);
+//			NextScreen initializingFinished = new InitializingFinished(
+//					ReadNews.class);
+//			HttpRequest request = new HttpRequest(ArticlesListActivity.this,
+//					initializingFinished, 0, true);
+//			
+//			
+//			
+//			String url = UrlMaker.GetArticle(article.getArticleID());
+//			request.execute(url);
+			ReadNews.id = article.getArticleID();
+			ReadNews.articles = articles;
+			Intent i = new Intent(ArticlesListActivity.this,ReadNews.class);
+			startActivity(i);
+			
 		}
 	};
-
+	
+	private Bitmap bit;
+	
+	private Article art;
+	private Target target = new Target() {
+		
+		
+	     @Override
+	     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+	    	  bit = bitmap;
+	    
+	    	  
+	     }
+	     
+		@Override
+		public void onBitmapFailed(Drawable arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void onPrepareLoad(Drawable arg0) {
+			
+			
+		}
+	};
+	
+	
 	private class ArticleAdapter extends ArrayAdapter<Article> {
 
 		private ArrayList<Article> items;
@@ -201,20 +241,26 @@ public class ArticlesListActivity extends ListActivity {
 				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = vi.inflate(R.layout.single_listview_item, null);
 			}
-			Article o = items.get(position);
+			 Article o = items.get(position);
 			if (o != null) {
 				TextView tt = (TextView) v.findViewById(R.id.listViewHeadline);
+				tt.setText(o.getArticleHeadline());
 				ImageView iv = (ImageView) v
 						.findViewById(R.id.listViewArticlePicture);
 				Picasso.with(context).load(o.getPictureUrl()).into(iv);
-				if (tt != null) {
-					tt.setText(o.getArticleHeadline());
-				}
-
+				
+				
+				
+				
+			
 			}
 
 			return v;
 		}
+
 	}
+	
+
+
 
 }
