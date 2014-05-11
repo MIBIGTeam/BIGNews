@@ -16,6 +16,7 @@
             >
 
             <ImageView
+                android:contentDescription="@string/imageofarticle"
                 android:layout_width="match_parent"
                 android:layout_height="270dp"
                 android:src="@drawable/nesreca"
@@ -38,7 +39,7 @@
                     android:textColor="#FFFFFF"
                     android:id="@+id/articleHeadline"
                     android:layout_alignParentBottom="true"
-                    android:text="Naslov"
+                    android:text="@string/naslov"
                     android:textSize="25sp"/>
 
             </RelativeLayout>

@@ -1,14 +1,20 @@
 package com.hackathon.bigteam;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
-import android.media.Image;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.app.Activity;
@@ -23,12 +29,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.hackaton.util.BitmapDownloader;
+import com.hackaton.util.HttpRequest;
+import com.hackaton.util.InitializingFinished;
+import com.hackaton.util.NextScreen;
+import com.hackaton.util.UrlMaker;
 import com.parse.Parse;
-import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -42,6 +51,10 @@ public class AddNews extends Activity {
 	String imageUrl;
 	boolean hasPassed = false;
 	ImageView headerImage;
+	EditText headline;
+	EditText content;
+	EditText tags;
+	EditText author;
 
 	AlertDialog dial;
 	@Override
@@ -51,6 +64,10 @@ public class AddNews extends Activity {
 		setContentView(R.layout.activity_add_news);
 		Parse.initialize(this, "pW2LSNJN29SgorrElj4Ij40WfD5Llvao1OXNf1PS", "gshhHu0PMzLeeLighk4LQqAb3mio8zf0yqCnuXbO");
 		headerImage = (ImageView) findViewById(R.id.addPictureImageView);
+		headline = (EditText) findViewById(R.id.addHeadlineEditText);
+		content = (EditText) findViewById(R.id.addContentEditText);
+		tags = (EditText) findViewById(R.id.addTagsEditText);
+		author = (EditText) findViewById(R.id.addAuthorEditText);
 		
 		AlertDialog.Builder dialog = new AlertDialog.Builder(AddNews.this);
 		dialog.setMessage("Odaberite odakle želite uèitati sliku?")
@@ -176,7 +193,10 @@ public class AddNews extends Activity {
 				runOnUiThread(new Runnable() {					
 					@Override
 					public void run() {
-						prog.dismiss();						
+						prog.dismiss();
+												
+						String tmp = UrlMaker.createAddArticleURL(headline.getText().toString(), content.getText().toString(), imageUrl, author.getText().toString());
+						readWebpage(tmp);						
 					}
 				});
 			}
@@ -208,5 +228,54 @@ public class AddNews extends Activity {
 
 	}
 	
+	private class DownloadAndParseWebPageTask extends AsyncTask<String, Void, String>
+	{
+		@Override
+		protected String doInBackground(String... urls)
+		{
+			String response = "";
+			for (String url : urls)
+			{
+				Log.i("Lista", url);
+				DefaultHttpClient client = new DefaultHttpClient();
+				HttpGet httpGet = new HttpGet(url);
+				try
+				{
+					HttpResponse execute = client.execute(httpGet);
+					InputStream content = execute.getEntity().getContent();
+
+					BufferedReader buffer = new BufferedReader(
+							new InputStreamReader(content));
+					String s = "";
+					while ((s = buffer.readLine()) != null)
+					{
+						response += s;
+					}
+
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+			return response;
+		}
+
+		@Override
+		protected void onPostExecute(String result)
+		{
+			String tmp = UrlMaker.createAddTagsToArticle(result, tags.getText().toString());
+			NextScreen initializingFinished = new InitializingFinished(ArticlesListActivity.class);
+			HttpRequest request = new HttpRequest(AddNews.this, initializingFinished, 0, true);
+			request.execute(tmp);
+			Log.i("AddNews starts url: ", tmp);
+		}
+	}
 	
+	DownloadAndParseWebPageTask task = null;
+	public void readWebpage(String URL)
+	{
+		task = new DownloadAndParseWebPageTask();
+		task.execute(new String[] { URL });
+		Log.i("AddNews", "Poslan addArticle.php");
+	}
 }
