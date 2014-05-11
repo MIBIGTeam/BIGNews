@@ -13,7 +13,7 @@
         android:orientation="horizontal" >
         
        <ImageButton 
-           android:contentDescription="addNewArticleButton"
+           android:contentDescription="@string/addnewarticlebutton"
            android:layout_width="40dp"
            android:layout_height="40dp"
            android:background="@drawable/button_selector"

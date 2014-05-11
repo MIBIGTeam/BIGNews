@@ -8,5 +8,12 @@
     <string name="title_activity_add_news">AddNews</string>
     <string name="title_activity_read_news">ReadNews</string>
     <string name="title_activity_articles_list">ArticlesListActivity</string>
+    <string name="objavi">Objavi</string>
+    <string name="buttonnewstolist">buttonNewsToList</string>
+    <string name="dodajte_naslov">Dodajte naslov...</string>
+    <string name="dodajte_sadrzaj">Dodajte sadržaj...</string>
+    <string name="dodajte_tagove">Dodajte tagove...</string>
+    <string name="addnewarticlebutton">addNewArticleButton</string>
+    <string name="backbutton">backButton</string>
 
 </resources>
