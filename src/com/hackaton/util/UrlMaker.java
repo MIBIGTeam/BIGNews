@@ -25,7 +25,22 @@ public class UrlMaker {
 	
 	
 	public static String createGetNextFilteredURL(int articleID) {
+
+		return "http://trashnfun.com/News/getNext15Articles.php?articleByAuthor="
+				+ security + "&ArticleId=" + articleID;
+	}
+
+	public static String createAddArticleURL(String headline, String text,
+			String imageURL, String author) {
+
+		return "http://trashnfun.com/News/addArticle.php?ArticleHeadline="
+				+ headline + "&ArticleText=" + text + "&Author=" + author
+				+ "&PictureUrl" + imageURL + "&articleByAuthor=" + security;
+	}
+
+	public static String createAddTagsToArticle(String articleID, String tags) {
 		
-		return "http://trashnfun.com/News/getNext15Articles.php?articleByAuthor="+security+"&ArticleId="+articleID;
+		return "http://trashnfun.com/News/addTagToArticle.php?articleByAuthor="
+				+ security + "&ArticleId=" + articleID + "&Tags=" + StringModifier.modifyString(tags);
 	}
 }
