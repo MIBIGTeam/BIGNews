@@ -9,21 +9,23 @@ import com.hackaton.model.Article;
 
 public class JsonParser {
 
-	// public static String ParseTimestamp(String json){
-	//
-	// String date;
-	// try{
-	// JSONArray jsonArray = new JSONArray(json);
-	// for(int i=0; i< jsonArray.length(); i++){
-	// JSONObject jsonObject = jsonArray.getJSONObject(i);
-	//
-	// }
-	//
-	// }catch(Exception e){
-	// e.printStackTrace();
-	// }
-	// return date;
-	// }
+	public static ArrayList<String> ParseTags(String json) {
+
+		ArrayList<String> tempArr = new ArrayList<String>();
+
+		try {
+			JSONArray jsonArray = new JSONArray(json);
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				tempArr.add(jsonObject.getString("TagText"));
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return tempArr;
+
+	}
 
 	public static ArrayList<Article> ParseArticles(String json) {
 
