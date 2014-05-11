@@ -5,8 +5,9 @@
     android:background="#383838"
     >
 <ImageView 
-    android:layout_width="100dp"
-    android:layout_height="100dp"
+    android:contentDescription="@string/sth"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
     android:src="@drawable/splashlogo"
     android:layout_centerInParent="true"
     />

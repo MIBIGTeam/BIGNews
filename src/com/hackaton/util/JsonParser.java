@@ -8,30 +8,49 @@ import org.json.JSONObject;
 import com.hackaton.model.Article;
 
 public class JsonParser {
-	
-	public static ArrayList<Article> ParseArticles(String json){
-		
+
+	public static ArrayList<String> ParseTags(String json) {
+
+		ArrayList<String> tempArr = new ArrayList<String>();
+
+		try {
+			JSONArray jsonArray = new JSONArray(json);
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObject = jsonArray.getJSONObject(i);
+				tempArr.add(jsonObject.getString("TagText"));
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return tempArr;
+
+	}
+
+	public static ArrayList<Article> ParseArticles(String json) {
+
 		ArrayList<Article> articles = new ArrayList<Article>();
 
-		try	{
-			
+		try {
+
 			JSONArray jsonArray = new JSONArray(json);
-			for (int i = 0; i < jsonArray.length(); i++)
-			{
+			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
 				Article article = new Article();
 				article = new Article();
-				
+
 				article.setArticleID(jsonObject.optInt("ArticleID"));
-				article.setArticleHeadline(jsonObject.optString("ArticleHeadline"));
+				article.setArticleHeadline(jsonObject
+						.optString("ArticleHeadline"));
 				article.setArticleText(jsonObject.optString("ArticleText"));
 				article.setArticleAuthor(jsonObject.optString("ArticleAuthor"));
 				article.setArticleDate(jsonObject.optString("ArticleDate"));
-				article.setPictureUrl("http://" + jsonObject.optString("PictureUrl"));
+				article.setPictureUrl("http://"
+						+ jsonObject.optString("PictureUrl"));
 				articles.add(article);
 			}
-			
-		} catch (Exception e){
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

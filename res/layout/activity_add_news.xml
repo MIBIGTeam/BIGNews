@@ -79,26 +79,27 @@
                 android:paddingTop="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
+                android:background="#DDD"
                 android:textSize="20sp"
-                android:textColor="#DDDDDD"/>
+                android:textColor="#000"/>
 
             <EditText
+                android:id="@+id/addContentEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:minHeight="170dp"
-                android:id="@+id/addContentEditText"
                 android:layout_below="@id/addHeadlineEditText"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:hint="@string/dodajte_sadrzaj"
-                android:textColor="#DDDDDD"
+                android:layout_marginTop="10dp"
+                android:background="#DDD"
                 android:gravity="top"
+                android:hint="@string/dodajte_sadrzaj"
+                android:inputType="text"
+                android:minHeight="170dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="15sp"
-                />
+                android:textColor="#000"
+                android:textSize="19sp" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -110,11 +111,12 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:hint="@string/dodajte_tagove"
-                android:textColor="#DDDDDD"
+                android:textColor="#222"
                 android:gravity="top"
+                android:background="#DDD"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="15sp"
+                android:textSize="17sp"
                 />
 		
             <EditText
@@ -127,11 +129,12 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:hint="@string/ime_autora"
-                android:textColor="#DDDDDD"
+                android:textColor="#000"
                 android:gravity="top"
+                android:background="#DDD"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="15sp"
+                android:textSize="17sp"
                 />
         </RelativeLayout>
 
