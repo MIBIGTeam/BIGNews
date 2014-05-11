@@ -105,8 +105,7 @@ public class ArticlesListActivity extends ListActivity {
 	}
 
 	@Override
-<<<<<<< HEAD
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
      super.onActivityResult(requestCode, resultCode, data);
      if(resultCode==RESULT_OK){
     	 Log.i("kfkfk", "tu sam se stvorija");
@@ -114,80 +113,24 @@ public class ArticlesListActivity extends ListActivity {
      }
     }
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.articles_list, menu);
-	    
-	    
-	    
-	    menu.add(1, 1, 1, "Search");    
-	    
-	    return super.onCreateOptionsMenu(menu);
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle item selection
-	    switch (item.getItemId()) {
-	    case(1):
-	    	startAlertDialog();
-	        return true;	    
-	    default:
-	        return super.onOptionsItemSelected(item);
-	    }
-	}
-	
-	public void startAlertDialog(){
-		AlertDialog dial;
-		AlertDialog.Builder dialog = new AlertDialog.Builder(ArticlesListActivity.this);
-		dialog.setMessage("Odaberite odakle želite uèitati sliku?").setTitle(
-				"Uèitavanje");
-		dialog.setPositiveButton("Traži",
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						// User clicked OK button
-
-						Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-						intent.setType("image/*");
-						startActivityForResult(intent, 0);
-
-					}
-				});
-
-		dialog.setNegativeButton("Odustani",
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						// User cancelled the dialog
-
-					}
-				});
-
-		dial = dialog.create();
-	}
 	
 	
 	
-	public void refreshButtonClicked(View view){
-=======
+	
+
+	
+	
+	
+
 	protected void onResume() {
 		super.onResume();
 		Log.i("kfkfk", "tu sam se u resumeu");
 		refreshButtonClicked(null);
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == RESULT_OK) {
-			if (resultCode == RESULT_OK) {
-				Log.i("kfkfk", "tu sam se stvorija");
-				refreshButtonClicked(null);
-			}
-		}
-	}
 
 	public void refreshButtonClicked(View view) {
->>>>>>> 0d0337e00ad4ac7f4d1deda37e0196997d1f95ca
+
 		String tmp = UrlMaker.GetXArticles();
 		HttpRequest ht = new HttpRequest(ArticlesListActivity.this, null, 0,
 				true);
