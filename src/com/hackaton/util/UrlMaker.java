@@ -1,5 +1,7 @@
 package com.hackaton.util;
 
+import java.net.URLEncoder;
+
 import android.util.Log;
 
 
@@ -42,8 +44,8 @@ public class UrlMaker {
 		imageURL = imageURL.replace("http://", "");
 		
 		return "http://trashnfun.com/News/addArticle.php?ArticleHeadline="
-				+ headline + "&ArticleText=" + text + "&Author=" + author
-				+ "&PictureUrl=" + imageURL + "&articleByAuthor=" + security;
+				+ URLEncoder.encode(headline) + "&ArticleText=" + URLEncoder.encode(text) + "&Author=" + URLEncoder.encode(author)
+				+ "&PictureUrl=" + URLEncoder.encode(imageURL) + "&articleByAuthor=" + security;
 	}
 
 	public static String createAddTagsToArticle(String articleID, String tags) {

@@ -52,7 +52,7 @@ public class ArticlesListActivity extends ListActivity {
 	private int numberOfLastAddedMembers;
 	public static Boolean enableInfiniteScroll =true;
 	private ArrayList<Article> articles = null;
-	
+	private Runnable run;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,18 @@ public class ArticlesListActivity extends ListActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		setContentView(R.layout.activity_articles_list);
-
+//		 run = new Runnable() {
+//			@Override
+//			public void run() {
+//			
+//
+//				String tmp = UrlMaker.GetXArticles();
+//				getListView().invalidate();
+//				adapter.notifyDataSetInvalidated();
+//				adapter.notifyDataSetChanged();
+//			
+//			}
+//		};
 		 articles = new ArrayList<Article>();
 
 		Intent intent = getIntent();
@@ -84,8 +95,37 @@ public class ArticlesListActivity extends ListActivity {
 		startActivity(intten);
 	}
 	
+	
+	@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+     super.onActivityResult(requestCode, resultCode, data);
+     if(resultCode==RESULT_OK){
+    	 Log.i("kfkfk", "tu sam se stvorija");
+    	 refreshButtonClicked(null);
+     }
+    }
+	
+	
+	
+	
 	public void refreshButtonClicked(View view){
-		//TODO Ivane ispuni ovo!!!
+		String tmp = UrlMaker.GetXArticles();
+		HttpRequest	ht = new HttpRequest(ArticlesListActivity.this, null, 0, true);
+		String json;
+		try {
+			json = ht.execute(tmp).get();
+			List<Article> articles = JsonParser.ParseArticles(json);
+			adapter.clear();
+			adapter.addAll(articles);
+			adapter.notifyDataSetChanged();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	private OnScrollListener scrollListener = new OnScrollListener() {
