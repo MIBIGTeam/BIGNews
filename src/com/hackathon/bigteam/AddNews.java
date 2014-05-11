@@ -263,14 +263,9 @@ public class AddNews extends Activity {
 		@Override
 		protected String doInBackground(String... urls) {
 			String response = "";
-<<<<<<< HEAD
-			for (String url : urls) {
-				Log.i("Lista", url);
-=======
 			for (String url : urls)
 			{
 				Log.i("AddNews", url);
->>>>>>> c241ec7b02f6fa6bbe9ce8fe25f037692dc1d915
 				DefaultHttpClient client = new DefaultHttpClient();
 				HttpGet httpGet = new HttpGet(url);
 				try {
@@ -292,22 +287,12 @@ public class AddNews extends Activity {
 		}
 
 		@Override
-<<<<<<< HEAD
-		protected void onPostExecute(String result) {
-			String tmp = UrlMaker.createAddTagsToArticle(result, tags.getText()
-					.toString());
-			NextScreen initializingFinished = new InitializingFinished(
-					ArticlesListActivity.class);
-			HttpRequest request = new HttpRequest(AddNews.this,
-					initializingFinished, 0, true);
-=======
 		protected void onPostExecute(String result)
 		{
 			Log.i("AddNews starts url: ", result);
 			String tmp = UrlMaker.createAddTagsToArticle(result, tags.getText().toString());
 			NextScreen initializingFinished = new InitializingFinished(ArticlesListActivity.class);
 			HttpRequest request = new HttpRequest(AddNews.this, initializingFinished, 0, true);
->>>>>>> c241ec7b02f6fa6bbe9ce8fe25f037692dc1d915
 			request.execute(tmp);
 			Log.i("AddNews starts url: ", tmp);
 		}
