@@ -71,6 +71,11 @@ public class ArticlesListActivity extends ListActivity {
 			getListView().setOnScrollListener(scrollListener);
 		}
 	}
+	
+	public void listArticlesToAddArticlesClicked(View view){
+		Intent intten = new Intent(this, AddNews.class);
+		startActivity(intten);
+	}
 
 	private OnScrollListener scrollListener = new OnScrollListener() {
 
@@ -84,7 +89,7 @@ public class ArticlesListActivity extends ListActivity {
 				int visibleItemCount, int totalItemCount) {
 			boolean loadMore = // maybe add a padding
 			firstVisibleItem + visibleItemCount >= totalItemCount;
-
+			
 			if (loadMore && enableInfiniteScroll) {
 				 String page =UrlMaker.createGetNextFilteredURL(adapter.getItem(adapter.getCount()- 1).getArticleID());
 				 Log.i("string", page);
