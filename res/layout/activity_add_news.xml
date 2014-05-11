@@ -46,7 +46,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:descendantFocusability="beforeDescendants">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -79,9 +81,9 @@
                 android:paddingTop="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:background="#DDD"
-                android:textSize="20sp"
-                android:textColor="#000"/>
+                android:background="#000"
+                android:textSize="25sp"
+                android:textColor="#DDD"/>
 
             <EditText
                 android:id="@+id/addContentEditText"
@@ -91,51 +93,52 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="10dp"
-                android:background="#DDD"
+                android:background="#000"
                 android:gravity="top"
                 android:hint="@string/dodajte_sadrzaj"
                 android:inputType="text"
                 android:minHeight="170dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textColor="#000"
+                android:textColor="#DDD"
                 android:textSize="19sp" />
 
             <EditText
+                android:id="@+id/addTagsEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:id="@+id/addTagsEditText"
+                android:minHeight="40dp"
                 android:layout_below="@id/addContentEditText"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:hint="@string/dodajte_tagove"
-                android:textColor="#222"
+                android:layout_marginTop="10dp"
+                android:background="#000"
                 android:gravity="top"
-                android:background="#DDD"
+                android:hint="@string/dodajte_tagove"
+                android:inputType="text"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="17sp"
-                />
+                android:textColor="#DDD"
+                android:textSize="17sp" />
 		
             <EditText
+                android:id="@+id/addAuthorEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:id="@+id/addAuthorEditText"
+                android:minHeight="40dp"
                 android:layout_below="@id/addTagsEditText"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:hint="@string/ime_autora"
-                android:textColor="#000"
+                android:layout_marginTop="10dp"
+                android:background="#000"
                 android:gravity="top"
-                android:background="#DDD"
+                android:hint="@string/ime_autora"
+                android:inputType="text"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="17sp"
-                />
+                android:textColor="#DDD"
+                android:textSize="17sp" />
+
         </RelativeLayout>
 
 

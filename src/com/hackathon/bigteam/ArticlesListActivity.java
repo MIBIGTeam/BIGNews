@@ -52,6 +52,7 @@ public class ArticlesListActivity extends ListActivity {
 	private int numberOfLastAddedMembers;
 	public static Boolean enableInfiniteScroll = true;
 	private ArrayList<Article> articles = null;
+
 	private Runnable run;
 
 	@Override
@@ -60,6 +61,7 @@ public class ArticlesListActivity extends ListActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		setContentView(R.layout.activity_articles_list);
+<<<<<<< HEAD
 		// run = new Runnable() {
 		// @Override
 		// public void run() {
@@ -73,6 +75,12 @@ public class ArticlesListActivity extends ListActivity {
 		// }
 		// };
 		articles = new ArrayList<Article>();
+=======
+
+		articles = new ArrayList<Article>();
+
+		 articles = new ArrayList<Article>();
+>>>>>>> 503164b2e3aad19f49eaaee69c53b8400aa843f3
 
 		Intent intent = getIntent();
 		articles = JsonParser.ParseArticles(intent.getStringExtra("jsons"));
@@ -129,8 +137,12 @@ public class ArticlesListActivity extends ListActivity {
 		} catch (ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+<<<<<<< HEAD
 		}
 
+=======
+		}		
+>>>>>>> 503164b2e3aad19f49eaaee69c53b8400aa843f3
 	}
 
 	private OnScrollListener scrollListener = new OnScrollListener() {
@@ -236,7 +248,11 @@ public class ArticlesListActivity extends ListActivity {
 			ReadNews.id = article.getArticleID();
 			ReadNews.articles = articles;
 			Intent i = new Intent(ArticlesListActivity.this, ReadNews.class);
+<<<<<<< HEAD
 			startActivityForResult(i, RESULT_OK);
+=======
+			startActivity(i);
+>>>>>>> 503164b2e3aad19f49eaaee69c53b8400aa843f3
 
 		}
 	};
