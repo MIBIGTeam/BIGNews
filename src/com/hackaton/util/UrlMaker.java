@@ -27,4 +27,13 @@ public class UrlMaker {
 		
 		return "http://trashnfun.com/News/getNext15Articles.php?articleByAuthor="+security+"&ArticleId="+articleID;
 	}
+	
+	public static String createAddArticleURL(String headline, String text, String imageURL, String author) {
+		
+		return "http://trashnfun.com/News/addArticle.php?ArticleHeadline=" + headline +
+				"&ArticleText=" + text +
+				"&Author=" + author +
+				"&PictureUrl" + imageURL + 
+				"&articleByAuthor=" + security;
+	}
 }
