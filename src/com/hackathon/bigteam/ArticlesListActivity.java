@@ -24,8 +24,10 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -35,6 +37,9 @@ import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -43,6 +48,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -96,6 +102,57 @@ public class ArticlesListActivity extends ListActivity {
      }
     }
 	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.articles_list, menu);
+	    
+	    
+	    
+	    menu.add(1, 1, 1, "Search");    
+	    
+	    return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	    case(1):
+	    	startAlertDialog();
+	        return true;	    
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
+	}
+	
+	public void startAlertDialog(){
+		AlertDialog dial;
+		AlertDialog.Builder dialog = new AlertDialog.Builder(ArticlesListActivity.this);
+		dialog.setMessage("Odaberite odakle želite uèitati sliku?").setTitle(
+				"Uèitavanje");
+		dialog.setPositiveButton("Traži",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// User clicked OK button
+
+						Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+						intent.setType("image/*");
+						startActivityForResult(intent, 0);
+
+					}
+				});
+
+		dialog.setNegativeButton("Odustani",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// User cancelled the dialog
+
+					}
+				});
+
+		dial = dialog.create();
+	}
 	
 	
 	
