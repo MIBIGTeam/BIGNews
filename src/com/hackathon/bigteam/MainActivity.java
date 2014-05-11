@@ -25,8 +25,6 @@ public class MainActivity extends Activity {
 		String url = UrlMaker.GetXArticles();
 		request.execute(url);
 		Log.i("MainActivity starts url: ", url);
-		
-
 	}
 
 	@Override
