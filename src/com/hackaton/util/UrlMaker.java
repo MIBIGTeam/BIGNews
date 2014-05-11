@@ -6,7 +6,7 @@ public class UrlMaker {
 
 	public static String GetArticle(int articleID) {
 
-		return "http://trashnfun.com/News/getArticleById.php?&articleByAuthor="
+		return "http://trashnfun.com/News/getArticleById.php?articleByAuthor="
 				+ security + "&ArticleId=" + articleID;
 	}
 
@@ -21,5 +21,10 @@ public class UrlMaker {
 		return "http://trashnfun.com/News/editRating.php?articleByAuthor="
 				+ security + "&ArticleId=" + articleId + "&Sum=" + sum;
 
+	}
+
+	public static String createGetNextFilteredURL(int articleID) {
+		
+		return "http://trashnfun.com/News/getNext15Articles.php?articleByAuthor="+security+"&ArticleId="+articleID;
 	}
 }
