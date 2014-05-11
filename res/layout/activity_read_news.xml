@@ -13,6 +13,7 @@
         android:orientation="horizontal" >
 
         <ImageButton
+            android:contentDescription="backButton"
             android:id="@+id/readNewsToListButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -20,6 +21,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
+            android:onClick="readNewsToListButton"
             android:background="@drawable/button_selector"
             android:padding="2dp"
             android:scaleType="centerInside"
@@ -35,30 +37,21 @@
             >
 
             <ImageButton
+                android:contentDescription="likeButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginRight="10dp"
-<<<<<<< HEAD
-                android:background="@drawable/button_selector"
-                android:contentDescription="thumbUp"
-=======
                 android:onClick="onClickLike"
->>>>>>> 3f26dd6b47597fd431faf9451605e2874d7e28de
                 android:padding="2dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/thumbup" />
 
             <ImageButton
+                android:contentDescription="dislikeButton"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-<<<<<<< HEAD
-                android:layout_marginRight="10dp"
-                android:background="@drawable/button_selector"
-                android:contentDescription="thumbDown"
-=======
                 android:onClick="onClickDislike"
->>>>>>> 3f26dd6b47597fd431faf9451605e2874d7e28de
                 android:padding="2dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/thumbdown" />

@@ -12,6 +12,7 @@
         android:background="#0B3861" >
 
         <ImageButton
+            android:contentDescription="buttonNewsToList"
             android:id="@+id/addNewsToListButton"
             android:layout_width="40dp"
             android:layout_height="40dp"

@@ -78,13 +78,13 @@ public class ArticlesListActivity extends ListActivity {
 			boolean loadMore = // maybe add a padding
 			firstVisibleItem + visibleItemCount >= totalItemCount;
 
-			if (loadMore && enableInfiniteScroll) {
+			/*if (loadMore && enableInfiniteScroll) {
 				 String page =
 				 UrlMaker.createGetNextFilteredURL(adapter.getItem(adapter.getCount()
 				 - 1).getId(), filterName, filterSurname, filterCity,
 				 filterSubjects);
 				 readWebpage(page);
-			}
+			}*/
 		}
 	};
 
