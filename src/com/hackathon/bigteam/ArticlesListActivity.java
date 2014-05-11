@@ -50,29 +50,29 @@ public class ArticlesListActivity extends ListActivity {
 
 	private ArticleAdapter adapter;
 	private int numberOfLastAddedMembers;
-	public static Boolean enableInfiniteScroll =true;
+	public static Boolean enableInfiniteScroll = true;
 	private ArrayList<Article> articles = null;
 	private Runnable run;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		setContentView(R.layout.activity_articles_list);
-//		 run = new Runnable() {
-//			@Override
-//			public void run() {
-//			
-//
-//				String tmp = UrlMaker.GetXArticles();
-//				getListView().invalidate();
-//				adapter.notifyDataSetInvalidated();
-//				adapter.notifyDataSetChanged();
-//			
-//			}
-//		};
-		 articles = new ArrayList<Article>();
+		// run = new Runnable() {
+		// @Override
+		// public void run() {
+		//
+		//
+		// String tmp = UrlMaker.GetXArticles();
+		// getListView().invalidate();
+		// adapter.notifyDataSetInvalidated();
+		// adapter.notifyDataSetChanged();
+		//
+		// }
+		// };
+		articles = new ArrayList<Article>();
 
 		Intent intent = getIntent();
 		articles = JsonParser.ParseArticles(intent.getStringExtra("jsons"));
@@ -89,28 +89,33 @@ public class ArticlesListActivity extends ListActivity {
 			getListView().setOnScrollListener(scrollListener);
 		}
 	}
-	
-	public void listArticlesToAddArticlesClicked(View view){
+
+	public void listArticlesToAddArticlesClicked(View view) {
 		Intent intten = new Intent(this, AddNews.class);
-		startActivity(intten);
+		startActivityForResult(intten, RESULT_OK);
 	}
-	
-	
+
 	@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-     super.onActivityResult(requestCode, resultCode, data);
-     if(resultCode==RESULT_OK){
-    	 Log.i("kfkfk", "tu sam se stvorija");
-    	 refreshButtonClicked(null);
-     }
-    }
-	
-	
-	
-	
-	public void refreshButtonClicked(View view){
+	protected void onResume() {
+		super.onResume();
+		Log.i("kfkfk", "tu sam se u resumeu");
+		refreshButtonClicked(null);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == RESULT_OK) {
+			if (resultCode == RESULT_OK) {
+				Log.i("kfkfk", "tu sam se stvorija");
+				refreshButtonClicked(null);
+			}
+		}
+	}
+
+	public void refreshButtonClicked(View view) {
 		String tmp = UrlMaker.GetXArticles();
-		HttpRequest	ht = new HttpRequest(ArticlesListActivity.this, null, 0, true);
+		HttpRequest ht = new HttpRequest(ArticlesListActivity.this, null, 0,
+				true);
 		String json;
 		try {
 			json = ht.execute(tmp).get();
@@ -125,7 +130,7 @@ public class ArticlesListActivity extends ListActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	private OnScrollListener scrollListener = new OnScrollListener() {
@@ -140,41 +145,37 @@ public class ArticlesListActivity extends ListActivity {
 				int visibleItemCount, int totalItemCount) {
 			boolean loadMore = // maybe add a padding
 			firstVisibleItem + visibleItemCount >= totalItemCount;
-			
+
 			if (loadMore && enableInfiniteScroll) {
-				 String page =UrlMaker.createGetNextFilteredURL(adapter.getItem(adapter.getCount()- 1).getArticleID());
-				 Log.i("string", page);
+				String page = UrlMaker.createGetNextFilteredURL(adapter
+						.getItem(adapter.getCount() - 1).getArticleID());
+				Log.i("string", page);
 				readWebpage(page);
 			}
 		}
 	};
-	
-	private class DownloadAndParseWebPageTask extends AsyncTask<String, Void, String>
-	{
+
+	private class DownloadAndParseWebPageTask extends
+			AsyncTask<String, Void, String> {
 		@Override
-		protected String doInBackground(String... urls)
-		{
+		protected String doInBackground(String... urls) {
 			String response = "";
-			for (String url : urls)
-			{
+			for (String url : urls) {
 				Log.i("Lista", url);
 				DefaultHttpClient client = new DefaultHttpClient();
 				HttpGet httpGet = new HttpGet(url);
-				try
-				{
+				try {
 					HttpResponse execute = client.execute(httpGet);
 					InputStream content = execute.getEntity().getContent();
 
 					BufferedReader buffer = new BufferedReader(
 							new InputStreamReader(content));
 					String s = "";
-					while ((s = buffer.readLine()) != null)
-					{
+					while ((s = buffer.readLine()) != null) {
 						response += s;
 					}
 
-				} catch (Exception e)
-				{
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -182,13 +183,11 @@ public class ArticlesListActivity extends ListActivity {
 		}
 
 		@Override
-		protected void onPostExecute(String result)
-		{
+		protected void onPostExecute(String result) {
 			ArrayList<Article> tempArticles;
 			tempArticles = JsonParser.ParseArticles(result);
 			Log.i("Lista", "Downloadano: " + result);
-			if (tempArticles != null && tempArticles.size() > 0)
-			{
+			if (tempArticles != null && tempArticles.size() > 0) {
 				for (int i = 0; i < tempArticles.size(); i++)
 					adapter.add(tempArticles.get(i));
 			}
@@ -197,21 +196,32 @@ public class ArticlesListActivity extends ListActivity {
 			numberOfLastAddedMembers = tempArticles.size();
 		}
 	}
-	
+
 	DownloadAndParseWebPageTask task = null;
-	public void readWebpage(String URL)
-	{
-		if (task == null)
+
+	public void readWebpage(String URL) {
+		if (task == null) {
+			task = new DownloadAndParseWebPageTask();
+			task.execute(new String[] { URL });
+			Log.i("Lista",
+					"Poslan ID "
+							+ adapter.getItem(adapter.getCount() - 1)
+									.getArticleID()
+							+ " kao zadnji ID za GetNext.");
+		} else if ((task.getStatus() == Status.FINISHED)
+				&& (numberOfLastAddedMembers != 0)) // if
+													// numberOfLastAddedMembers
+													// is zero there is no point
+													// in downloading more
+													// profiles
 		{
 			task = new DownloadAndParseWebPageTask();
 			task.execute(new String[] { URL });
-			Log.i("Lista", "Poslan ID " + adapter.getItem(adapter.getCount() - 1).getArticleID()+ " kao zadnji ID za GetNext.");
-		}
-		else if ((task.getStatus() == Status.FINISHED) && (numberOfLastAddedMembers != 0)) // if numberOfLastAddedMembers is zero there is no point in downloading more profiles
-		{
-			task = new DownloadAndParseWebPageTask();
-			task.execute(new String[] { URL });
-			Log.i("Lista", "Poslan ID " + adapter.getItem(adapter.getCount() - 1).getArticleID() + " kao zadnji ID za GetNext.");
+			Log.i("Lista",
+					"Poslan ID "
+							+ adapter.getItem(adapter.getCount() - 1)
+									.getArticleID()
+							+ " kao zadnji ID za GetNext.");
 		}
 	}
 
@@ -225,15 +235,12 @@ public class ArticlesListActivity extends ListActivity {
 
 			ReadNews.id = article.getArticleID();
 			ReadNews.articles = articles;
-			Intent i = new Intent(ArticlesListActivity.this,ReadNews.class);
-			startActivity(i);
-			
+			Intent i = new Intent(ArticlesListActivity.this, ReadNews.class);
+			startActivityForResult(i, RESULT_OK);
+
 		}
 	};
-	
 
-	
-	
 	private class ArticleAdapter extends ArrayAdapter<Article> {
 
 		private ArrayList<Article> items;
@@ -249,30 +256,23 @@ public class ArticlesListActivity extends ListActivity {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View v = convertView;
-				LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				v = vi.inflate(R.layout.single_listview_item, null);
-				
+			LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			v = vi.inflate(R.layout.single_listview_item, null);
+
 			Article o = items.get(position);
-			
+
 			if (o != null) {
 				TextView tt = (TextView) v.findViewById(R.id.listViewHeadline);
 				tt.setText(o.getArticleHeadline());
 				ImageView iv = (ImageView) v
 						.findViewById(R.id.listViewArticlePicture);
 				Picasso.with(context).load(o.getPictureUrl()).into(iv);
-				
-				
-				
-				
-			
+
 			}
 
 			return v;
 		}
 
 	}
-	
-
-
 
 }
